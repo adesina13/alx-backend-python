@@ -69,3 +69,18 @@ Use Python generators to fetch and process data in **batches** from the `user_da
 ```python
 def stream_users_in_batches(batch_size)
 def batch_processing(batch_size)
+
+
+
+## Task 3: Lazy Loading Paginated Data
+
+### Objective
+Simulate fetching paginated data from the `user_data` table using a generator that lazily loads each page.
+
+### File
+- **`2-lazy_paginate.py`**
+
+### Prototypes
+```python
+def paginate_users(page_size, offset)
+def lazy_pagination(page_size)
