@@ -54,3 +54,18 @@ Create a generator that streams rows from the `user_data` table one by one using
 ```python
 def stream_users():
     """Yields rows from user_data table as dictionaries."""
+
+
+
+## Task 2: Batch Processing Large Data
+
+### Objective
+Use Python generators to fetch and process data in **batches** from the `user_data` table.
+
+### Files
+- **`1-batch_processing.py`**
+
+### Prototypes
+```python
+def stream_users_in_batches(batch_size)
+def batch_processing(batch_size)
