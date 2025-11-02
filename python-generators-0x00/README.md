@@ -84,3 +84,18 @@ Simulate fetching paginated data from the `user_data` table using a generator th
 ```python
 def paginate_users(page_size, offset)
 def lazy_pagination(page_size)
+
+
+
+## Task 4: Memory-Efficient Aggregation with Generators
+
+### Objective
+Use a generator to compute a memory-efficient aggregate (average age) for a large dataset.
+
+### File
+- **`4-stream_ages.py`**
+
+### Prototypes
+```python
+def stream_user_ages()
+def compute_average_age()
