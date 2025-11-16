@@ -130,3 +130,21 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
         """Integration test for license filtering."""
         client = GithubOrgClient("google")
         self.assertEqual(client.public_repos("apache-2.0"), self.apache2_repos)
+    
+
+    def test_public_repos(self):
+        """Integration test: GithubOrgClient.public_repos returns expected repos."""
+        client = GithubOrgClient(self.org_payload["login"])
+        self.assertEqual(client.public_repos(), self.expected_repos)
+
+    def test_public_repos_with_license(self):
+        """
+        Integration test: GithubOrgClient.public_repos(license="apache-2.0")
+        returns repos matching Apache 2 license only.
+        """
+        client = GithubOrgClient(self.org_payload["login"])
+        self.assertEqual(
+            client.public_repos(license="apache-2.0"),
+            self.apache2_repos
+        )
+
