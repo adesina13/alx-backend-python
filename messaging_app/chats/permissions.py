@@ -1,26 +1,29 @@
 # chats/permissions.py
 
 from rest_framework import permissions
-from rest_framework import status
-from rest_framework.response import Response
 
 class IsParticipantOfConversation(permissions.BasePermission):
     """
-    Custom permission to allow only participants of a conversation
-    to view, send, update, or delete messages.
+    Custom permission:
+    - Only authenticated users can access the API
+    - Only participants of a conversation can view/send/update/delete messages
     """
 
     def has_object_permission(self, request, view, obj):
-        # obj can be a Conversation or Message
+        # First, ensure user is authenticated
+        if not request.user or not request.user.is_authenticated:
+            return False
+
+        # obj can be a Conversation or a Message
         conversation = getattr(obj, "conversation", obj)
 
-        # Only participants are allowed
+        # Only allow participants
         if request.user in conversation.participants.all():
             return True
 
-        # Explicitly check unsafe HTTP methods
+        # Explicitly deny unsafe HTTP methods
         if request.method in ['PUT', 'PATCH', 'DELETE']:
             return False
 
-        # Allow read-only if participant (GET, HEAD, OPTIONS)
+        # Allow read-only methods if participant
         return request.method in permissions.SAFE_METHODS
