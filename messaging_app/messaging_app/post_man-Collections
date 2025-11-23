@@ -1,11 +1,151 @@
-import os
-
-file_path = "messaging_app/post_man-Collections"
-
-if os.path.isfile(file_path):
-    if os.path.getsize(file_path) > 0:
-        print("File exists and is not empty ✅")
-    else:
-        print("File exists but is empty ❌")
-else:
-    print("File does not exist ❌")
+{
+  "info": {
+    "name": "Messaging App API",
+    "_postman_id": "a1b2c3d4-e5f6-7890-abcd-1234567890ab",
+    "description": "Postman Collection for testing Messaging App endpoints (JWT, conversations, messages, permissions)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "JWT Token Login",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"your_username\",\n  \"password\": \"your_password\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8000/api/token/",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["api", "token", ""]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Conversation",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"participants\": [2,3]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8000/api/conversations/create_conversation/",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["api", "conversations", "create_conversation", ""]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Fetch Conversations",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8000/api/conversations/",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["api", "conversations", ""]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Send Message",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"conversation\": 1,\n  \"message_body\": \"Hello, team!\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8000/api/messages/send_message/",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["api", "messages", "send_message", ""]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Fetch Messages",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8000/api/messages/",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["api", "messages", ""]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Unauthorized Access Test",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8000/api/conversations/",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["api", "conversations", ""]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "access_token",
+      "value": ""
+    }
+  ]
+}
